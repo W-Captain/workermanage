@@ -2,6 +2,9 @@
 #include "worker.h"
 #include <sstream>
 #include <string>
+#include <fstream>
+#include<atltime.h>
+
 worker::worker()
 {
 	std::cout << "new worker has been created" << std::endl;
@@ -36,6 +39,17 @@ void worker::Input_ID()
 
 void worker::InputTime()
 {
+	stringstream ss;
+	ss << ID;
+	long long ID_n;
+	ss >> ID_n;
+	ID_n /= 10000;
+	bir[2] = ID_n % 100;
+	ID_n /= 100;
+	bir[1] = ID_n % 100;
+	ID_n /= 100;
+	bir[0] = ID_n % 10000;
+
 	cout << "Input year" << endl;
 	cin >> time[0];
 	if (time[0] > 2019 || time[0] < 1900)
@@ -45,14 +59,14 @@ void worker::InputTime()
 	}
 	cout << "Input month" << endl;
 	cin >> time[1];
-	if (time[1] > 0 || time[1] < 13)
+	if (time[1] < 0 || time[1] > 13)
 	{
 		cout << "input error" << endl;
 		this->InputTime();
 	}
 	cout << "Input day" << endl;
 	cin >> time[2];
-	if (time[2] > 0 || time[2] < 31)
+	if (time[2] < 0 || time[2] > 31)
 	{
 		cout << "input error" << endl;
 		this->InputTime();
@@ -62,8 +76,26 @@ void worker::InputTime()
 
 void worker::Input_age()
 {
+	CTime tm = CTime::GetCurrentTime();
+	int d = tm.GetDay();
+	int y = tm.GetYear();
+	int m = tm.GetMonth();
+	age = y - bir[0] - 1;
+	if (m > bir[1])
+	{
+		age++;
+	}
+	else if (m == bir[1])
+	{
+		if (d > bir[2])
+		{
+			age++;
+		}
+	}
+	/*
 	cout << "Input age" << endl;
 	cin >> age;
+	*/
 }
 
 
@@ -71,6 +103,12 @@ void worker::Input_workerId()
 {
 	cout << "Input workerid" << endl;
 	cin >> workerId;
+}
+
+void worker::Input_name()
+{
+	cout << "Input name" << endl;
+	cin >> name;
 }
 
 
@@ -99,7 +137,16 @@ void worker::Workerinfo()
 	cout << "ID:" << this->ID << endl;
 	worker::GetSex();
 	cout << "workid is: " << this->workerId << endl;
-	cout << "time:  " << this->time[0] << this->time[1] << this->time[2] << endl;
+	cout << "name is: " << this->name << endl;
+	cout << "time:  " << this->time[0] << "  " << this->time[1] << "  " << this->time[2] << endl;
 	cout << "age:  " << this->age << endl;
 	cout << "*********************" << endl;
+}
+
+void worker::write()
+{
+	ofstream filew;
+	filew.open("text.txt",ios::app);
+	filew << this->ID << '\t' << this->name << '\t' << this->sex << '\t' << this->age << '\t' << this->time[0] << '\t' << this->time[1] << '\t' << this->time[2] << '\t' << this->workerId << endl;
+	filew.close();
 }

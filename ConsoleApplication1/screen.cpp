@@ -37,9 +37,11 @@ void screen::choose()
 		worker *workerp = new worker;
 		workerf->next = workerp;
 		workerp->Input_ID();
+		workerp->Input_name();
 		workerp->InputTime();
 		workerp->Input_workerId();
 		workerp->Input_age();
+		workerp->write();
 		break;
 	}
 	case 2:

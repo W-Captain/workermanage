@@ -7,6 +7,7 @@ public:
 	~screen();
 	void creatmenu();
 	void choose();
+	void read(worker *w);
 	worker f,*workerf;
 };
 
