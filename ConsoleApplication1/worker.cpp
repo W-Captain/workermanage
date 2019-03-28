@@ -122,12 +122,12 @@ void worker::GetSex()
 	if (ID_n % 2 == 0)
 	{
 		sex = 0;
-		cout << "This worker is female" << endl;
+		//cout << "This worker is female" << endl;
 	}
 	else
 	{
 		sex = 1;
-		cout << "This worker is male" << endl;
+		//cout << "This worker is male" << endl;
 	}
 }
 
@@ -147,6 +147,15 @@ void worker::write()
 {
 	ofstream filew;
 	filew.open("text.txt",ios::app);
-	filew << this->ID << '\t' << this->name << '\t' << this->sex << '\t' << this->age << '\t' << this->time[0] << '\t' << this->time[1] << '\t' << this->time[2] << '\t' << this->workerId << endl;
+	filew << this->ID << "        " << this->name << "        ";
+	if (this->sex == 0)
+	{
+		filew << "female" << "      ";
+	}
+	else
+	{
+		filew << "male" << "        ";
+	}
+	filew << this->age << "        " << this->time[0] <<'.'<< this->time[1] <<'.'<< this->time[2] <<"        "<< this->workerId << endl;
 	filew.close();
 }
