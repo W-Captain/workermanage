@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.vcxproj", "{5CD9CFF1-2DD4-46B7-BBC9-4D9CF27C43DC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "workermanage", "ConsoleApplication1\ConsoleApplication1.vcxproj", "{5CD9CFF1-2DD4-46B7-BBC9-4D9CF27C43DC}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{764EF6DC-E2BB-489F-89A0-0B52B4030481}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5CD9CFF1-2DD4-46B7-BBC9-4D9CF27C43DC}.Release|x64.Build.0 = Release|x64
 		{5CD9CFF1-2DD4-46B7-BBC9-4D9CF27C43DC}.Release|x86.ActiveCfg = Release|Win32
 		{5CD9CFF1-2DD4-46B7-BBC9-4D9CF27C43DC}.Release|x86.Build.0 = Release|Win32
+		{764EF6DC-E2BB-489F-89A0-0B52B4030481}.Debug|x64.ActiveCfg = Debug
+		{764EF6DC-E2BB-489F-89A0-0B52B4030481}.Debug|x86.ActiveCfg = Debug
+		{764EF6DC-E2BB-489F-89A0-0B52B4030481}.Release|x64.ActiveCfg = Release
+		{764EF6DC-E2BB-489F-89A0-0B52B4030481}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

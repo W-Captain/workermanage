@@ -3,11 +3,17 @@
 #include <sstream>
 #include <string>
 #include <fstream>
-#include<atltime.h>
+#include <atltime.h>
 
 worker::worker()
 {
 	std::cout << "new worker has been created" << std::endl;
+	this->Input_ID();
+	this->Input_name();
+	this->InputTime();
+	this->Input_workerId();
+	this->Input_age();
+	this->GetSex();
 }
 using namespace std;
 
@@ -15,7 +21,7 @@ using namespace std;
 
 worker::~worker()
 {
-	std::cout << "worker has been distroied" << std::endl;
+	//std::cout << "worker has been distroied" << std::endl;
 }
 
 
@@ -49,27 +55,29 @@ void worker::InputTime()
 	bir[1] = ID_n % 100;
 	ID_n /= 100;
 	bir[0] = ID_n % 10000;
-
+	nian:
 	cout << "Input year" << endl;
 	cin >> time[0];
 	if (time[0] > 2019 || time[0] < 1900)
 	{
 		cout << "input error" << endl;
-		this->InputTime();
+		goto nian;
 	}
+	yue:
 	cout << "Input month" << endl;
 	cin >> time[1];
 	if (time[1] < 0 || time[1] > 13)
 	{
 		cout << "input error" << endl;
-		this->InputTime();
+		goto yue;
 	}
+	ri:
 	cout << "Input day" << endl;
 	cin >> time[2];
 	if (time[2] < 0 || time[2] > 31)
 	{
 		cout << "input error" << endl;
-		this->InputTime();
+		goto ri;
 	}
 }
 
@@ -141,21 +149,4 @@ void worker::Workerinfo()
 	cout << "time:  " << this->time[0] << "  " << this->time[1] << "  " << this->time[2] << endl;
 	cout << "age:  " << this->age << endl;
 	cout << "*********************" << endl;
-}
-
-void worker::write()
-{
-	ofstream filew;
-	filew.open("text.txt",ios::app);
-	filew << this->ID << "        " << this->name << "        ";
-	if (this->sex == 0)
-	{
-		filew << "female" << "      ";
-	}
-	else
-	{
-		filew << "male" << "        ";
-	}
-	filew << this->age << "        " << this->time[0] <<'.'<< this->time[1] <<'.'<< this->time[2] <<"        "<< this->workerId << endl;
-	filew.close();
 }

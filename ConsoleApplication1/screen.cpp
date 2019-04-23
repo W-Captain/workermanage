@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "screen.h"
 #include "worker.h"
-#include <fstream>
+#include "company.h"
+#include <vector>
 #include <string>
 using namespace std;
 screen::screen()
@@ -17,12 +18,12 @@ void screen::creatmenu()
 {
 	system("cls");
 	cout << endl;
-	cout << "  ***************************" << endl;
-	cout << "  *  1  creat a new worker  *" << endl;
-	cout << "  *  2      view worker     *" << endl;
-	cout << "  *  3         edit         *" << endl;
-	cout << "  *  4         exit         *" << endl;
-	cout << "  ***************************" << endl;
+	cout << "  ****************************" << endl;
+	cout << "  *  1  creat a new company  *" << endl;
+	cout << "  *  2      view company     *" << endl;
+	cout << "  *  3         edit          *" << endl;
+	cout << "  *  4         exit          *" << endl;
+	cout << "  ****************************" << endl;
 	screen::choose();
 }
 
@@ -44,11 +45,7 @@ void screen::choose()
 	}
 	case 3:
 	{
-		int num;
-		screen::c2();
-		cout << "select num" << endl;
-		cin >> num;
-		screen::c3(num);
+		screen::c3();
 		break;
 	}
 	case 4:
@@ -64,71 +61,89 @@ void screen::choose()
 
 void screen::c1()
 {
-	worker *workerp = new worker;
-	workerp->Input_ID();
-	workerp->Input_name();
-	workerp->InputTime();
-	workerp->Input_workerId();
-	workerp->Input_age();
-	workerp->GetSex();
-	workerp->write();
+	company* ct;
+	ct = new company;
+	ct->get_name();
+	ct->get_info();
+	ct->get_worker();
+	com.push_back(ct);
 }
 
 void screen::c2()
 {
-	system("cls");
-	string str;
-	ifstream OpenFile("text.txt", ios::in);
-	OpenFile.seekg(0, ios::beg);
-	int num = 1;
-	cout << " num " << "        " << "ID" << "        " << "       " << "name" << "       " << "sex" << "       " << "age" << "          " << "time" << "       " << "workerid" << '\n';
-	while (getline(OpenFile, str))
+	for (auto it = com.begin(); it != com.end(); it++)
 	{
-		cout << "  " << num << "  ";
-		cout << str << endl;
-		num++;
+		cout << "neme: " << (*it)->name << endl;
+		cout << "info: " << (*it)->info << endl;
+		cout << "workernum: " << (*it)->workernum << endl;
+		cout << "---------------------------------------" << endl;
+		for (auto itw = (*it)->w.begin(); itw != (*it)->w.end(); itw++)
+		{
+			cout << "ID: " << (*itw)->ID << endl;
+			cout << "name: " << (*itw)->name << endl;
+			cout << "workerid: " << (*itw)->workerId << endl;
+			cout << "age: " << (*itw)->age << endl;
+			cout << "---------------------------------------" << endl;
+		}
 	}
-	OpenFile.close();
 	system("pause");
 }
 
-void screen::c3(int num)
+void screen::c3()
 {
-	ifstream fin("text.txt");
-	ofstream fout;
-	fout.open("temp.txt", ios::trunc);
-	string data;
-	while (getline(fin, data))
-	{
-		fout << data<<endl;
-	}
-	fin.close();
-	fout.close();
-	ofstream ffout;
-	ffout.open("text.txt", ios::trunc);
-	ifstream ffin("temp.txt");
+	cout << "which company you wanna edit" << endl;
 	int i = 1;
-	while (getline(ffin, data))
+	auto it = com.begin();
+	auto itw = (*it)->w.begin();
+	for (auto it = com.begin(); it != com.end(); it++)
 	{
-		if (i == num)
+		cout <<i<< "  neme: " << (*it)->name << endl;
+		i++;
+	}
+	int tnum;
+	innn:
+	cin >> tnum;
+	if (tnum > i - 1)
+	{
+		cout << "input wrong,please input again" << endl;
+		goto innn;
+	}
+	else
+	{
+		it = com.begin();
+		for (int j = 0; j < tnum - 1; j++)
 		{
-			worker *workerp = new worker;
-			workerp->Input_ID();
-			workerp->Input_name();
-			workerp->InputTime();
-			workerp->Input_workerId();
-			workerp->Input_age();
-			workerp->GetSex();
-			ffout.close();
-			workerp->write();
-			i++;
-			ffout.open("text.txt", ios::app);
-			continue;
+			it++;
 		}
-		else
+		(*it)->get_name();
+		(*it)->get_info();
+	}
+	cout << "which company you wanna edit" << endl;
+	i = 1;
+	for (auto itw = (*it)->w.begin(); itw != (*it)->w.end(); itw++)
+	{
+		cout << i << "  name: " << (*itw)->name << endl;
+		i++;
+	}
+	inn:
+	cin >> tnum;
+	if (tnum > i - 1)
+	{
+		cout << "input wrong,please input again" << endl;
+		goto inn;
+	}
+	else
+	{
+		itw = (*it)->w.begin();
+		for (int j = 0; j < tnum-1; j++)
 		{
-			ffout << data << endl;
-			i++;
+			itw++;
 		}
+		(*itw)->Input_ID();
+		(*itw)->Input_name();
+		(*itw)->InputTime();
+		(*itw)->Input_workerId();
+		(*itw)->Input_age();
+		(*itw)->GetSex();
 	}
 }

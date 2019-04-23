@@ -1,5 +1,7 @@
 #pragma once
 #include "worker.h"
+#include "company.h"
+#include <vector>
 class screen
 {
 public:
@@ -7,11 +9,9 @@ public:
 	~screen();
 	void creatmenu();
 	void choose();
-	void read(worker *w);
 	void c1();
 	void c2();
-	void c3(int num);
-	void c4();
-	worker f,*workerf;
+	void c3();
+	vector<company*> com;
 };
 
